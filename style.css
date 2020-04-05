@@ -1,0 +1,38 @@
+.product {
+    background: #eee;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.product .image {
+    max-width:100%
+}
+
+#basket .form-control {
+    width:auto;
+    display:inline-block;
+}
+
+#cart-wrap {
+    float: right;
+    margin-top: 30px;
+    font-size: 1.5em;
+    color: #ddd;
+}
+
+#cart-wrap.active {
+    color:#5cb85c;
+}
+
+#page-title {
+    float:left;
+}
+
+.table > tbody > tr > td {
+    border-top:none;
+    border-bottom: 1px solid #ddd;
+}
+
+.table > tbody > tr > td.no-border {
+    border:none;
+}

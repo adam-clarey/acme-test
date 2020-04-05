@@ -1,0 +1,22 @@
+{
+    "name": "adam-clarey/acme-widget-co",
+    "description": "Viddyoze PHP test",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Adam Clarey",
+            "email": "adam@citywebconsultants.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "dallgoot/yaml": "^0.3.2"
+    },
+    "scripts": {
+        "post-update-cmd":  [
+            "php install.php",
+            "php -r \"chmod( __DIR__ . '/install.php', 0400);\""
+        ]
+    }
+
+}
