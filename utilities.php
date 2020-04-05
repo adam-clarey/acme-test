@@ -146,7 +146,7 @@ function getCartContent() {
   else {
     $class = '';
   }
-  return '<a href="/cart.php" id="cart-wrap" class="' . $class . '"><i class="glyphicon glyphicon-shopping-cart"></i> $' . noHTML(number_format((float) $total, 2, '.', '')) . '</a>';
+  return '<a href="/cart.php" id="cart-wrap" class="' . $class . '"><i class="glyphicon glyphicon-shopping-cart"></i> $' . noHTML(number_format((float) round(round($total, 2, PHP_ROUND_HALF_DOWN), 2), 2, '.', '')) . '</a>';
 
 }
 
