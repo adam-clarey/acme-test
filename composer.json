@@ -2,6 +2,7 @@
     "name": "adam-clarey/acme-widget-co",
     "description": "Viddyoze PHP test",
     "type": "project",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Adam Clarey",
