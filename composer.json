@@ -11,8 +11,7 @@
     ],
     "require": {
         "php": ">=5.6",
-        "dallgoot/yaml": "^0.3.2",
-        "ext-sqlite3": ">=3.24"
+        "dallgoot/yaml": "^0.3.2"
     },
     "scripts": {
         "post-install-cmd":  [

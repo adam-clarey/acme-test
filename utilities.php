@@ -36,6 +36,31 @@ function getDB() {
   return new MyDB();
 }
 
+function getBasketProductCount($code) {
+  $session_id = getSessionId();
+  $db = getDB();
+  // Use bindValue to avoid SQL injection.
+  $query = $db->prepare("SELECT count(*) FROM BASKET
+                         WHERE SESSION = :session AND CODE = :code;");
+
+  $query->bindValue(":session", $session_id, SQLITE3_TEXT);
+  $query->bindValue(":code", $code, SQLITE3_TEXT);
+
+
+  if (($result = $query->execute()) === FALSE) {
+    $db->close();
+    unset($db);
+    return FALSE;
+  }
+  else {
+
+    $array = $result->fetchArray(SQLITE3_ASSOC);
+    $db->close();
+    unset($db);
+    return reset($array);
+  }
+}
+
 /**
  * Add a single product to the basket depending on which product the user
  * clicked on.
@@ -52,11 +77,31 @@ function addProductToBasket($code) {
   $session_id = getSessionId();
 
   $db = getDB();
-  // Use bindValue to avoid SQL injection.
-  $query = $db->prepare("INSERT INTO BASKET (SESSION,CODE, QUANTITY)
-                         VALUES (:session, :code, 1)
-                         ON CONFLICT(SESSION, CODE) 
-                         DO UPDATE SET QUANTITY=QUANTITY+1;");
+
+  $count = getBasketProductCount($code);
+
+  if ($count === 0) {
+    $query = $db->prepare("INSERT INTO BASKET (SESSION, CODE, QUANTITY)
+                           VALUES (:session, :code, 1)");
+  }
+  else {
+    $query = $db->prepare("UPDATE BASKET 
+                           SET QUANTITY = QUANTITY+1
+                           WHERE SESSION = :session AND CODE = :code");
+  }
+
+  /*
+  I could have saved a lot of code to check quantity then either do insert or
+  update by instead using the following but ON CONFLICT is only compatible
+  with newer versions on SQLite, which i've found from testing on several machines
+  is uncommon.
+
+  "INSERT INTO BASKET (SESSION,CODE, QUANTITY)
+       VALUES (:session, :code, 1)
+       ON CONFLICT(SESSION, CODE)
+       DO UPDATE SET QUANTITY=QUANTITY+1;"
+  */
+
   $query->bindValue(":session", $session_id, SQLITE3_TEXT);
   $query->bindValue(":code", $code, SQLITE3_TEXT);
 
@@ -67,6 +112,7 @@ function addProductToBasket($code) {
     return FALSE;
   }
   else {
+
     $db->close();
     unset($db);
     return TRUE;
@@ -90,10 +136,9 @@ function updateBasket($code, $quantity) {
   $db = getDB();
   $session_id = getSessionId();
 
-  $query = $db->prepare("INSERT INTO BASKET (SESSION,CODE, QUANTITY)
-                         VALUES (:session, :code, 1)
-                         ON CONFLICT(SESSION, CODE) 
-                         DO UPDATE SET QUANTITY=:quantity;");
+  $query = $db->prepare("UPDATE BASKET 
+                           SET QUANTITY = :quantity
+                           WHERE SESSION = :session AND CODE = :code");
   $query->bindValue(":session", $session_id, SQLITE3_TEXT);
   $query->bindValue(":code", $code, SQLITE3_TEXT);
   $query->bindValue(":quantity", $quantity, SQLITE3_TEXT);
