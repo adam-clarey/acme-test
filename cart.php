@@ -34,7 +34,7 @@ if (!empty($_POST['product']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- custom styles -->
     <link rel="stylesheet"
-          href="/style.css">
+          href="/css/style.css">
 </head>
 <body>
 <header class="container">

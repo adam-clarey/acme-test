@@ -13,7 +13,7 @@
         "dallgoot/yaml": "^0.3.2"
     },
     "scripts": {
-        "post-update-cmd":  [
+        "post-install-cmd":  [
             "php install.php",
             "php -r \"chmod( __DIR__ . '/install.php', 0400);\""
         ]

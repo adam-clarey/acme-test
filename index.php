@@ -30,7 +30,7 @@ $ret = $db->query($sql);
 
     <!-- custom styles -->
     <link rel="stylesheet"
-          href="/style.css">
+          href="/css/style.css">
 </head>
 <body>
 <header class="container">

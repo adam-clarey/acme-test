@@ -1,4 +1,4 @@
-#Installation
+# Installation
 
 Set your server as per normal for serving PHP web pages.
 In a live environment only /index.php and /cart.php would be directly served/executable by external requests.
@@ -14,7 +14,7 @@ as well as populate the PRODUCTS tables.
 
 After installation, the permissions for the install.php will be locked down.
 
-#Usage
+# Usage
 Access the test site at /index.php
 
 You will see 3 products as described plus additional promotion and delivery info.

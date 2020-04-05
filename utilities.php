@@ -10,7 +10,7 @@ use \Dallgoot\Yaml;
 
 class MyDB extends SQLite3 {
   function __construct() {
-    $this->open('acme8.db');
+    $this->open('acme.db');
   }
 }
 
